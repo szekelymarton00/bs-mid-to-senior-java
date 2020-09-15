@@ -1,5 +1,7 @@
 package bsmidtoseniorjava.test.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.UUID;
 
 public class User {
@@ -10,7 +12,10 @@ public class User {
     private final String lastName;
 
 
-    public User(UUID id, String name, String firstName, String lastName) {
+    public User(@JsonProperty("id") UUID id,
+                @JsonProperty("username") String name,
+                @JsonProperty("first_name") String firstName,
+                @JsonProperty("last_name") String lastName) {
         this.id = id;
         this.name = name;
         this.firstName = firstName;
