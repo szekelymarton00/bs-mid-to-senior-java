@@ -16,7 +16,7 @@ public class UserService {
     private final UserRepo userRepo;
 
     @Autowired
-    public UserService(@Qualifier("repo") UserRepo userRepo) {
+    public UserService(@Qualifier("postgres") UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
