@@ -3,6 +3,7 @@ package bsmidtoseniorjava.test.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
@@ -23,7 +24,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(joinColumns=@JoinColumn(name="user_id"),
     inverseJoinColumns=@JoinColumn(name ="task_id"))
-    private final Collection<Task> ownedtask;
+    private Collection<Task> ownedtask;
 
 
     public User(@JsonProperty("user_id") UUID user_id,
@@ -56,6 +57,15 @@ public class User {
 
     public Collection<Task> getOwnedtask() {
         return ownedtask;
+    }
+
+    public void addTask(Task taskToAdd) {
+        try{
+            ownedtask.add(taskToAdd);
+        } catch (NullPointerException e) {
+            ownedtask = new ArrayList<>();
+            ownedtask.add(taskToAdd);
+        }
     }
 
 }
