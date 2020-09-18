@@ -1,34 +1,43 @@
 package bsmidtoseniorjava.test.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
 
+@Table(name = "task")
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private final UUID id;
+    private final UUID task_id;
+    @ManyToOne
+    private final User owner;
     private final String name;
     private final String description;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss.SSS")
     private final Timestamp timestamp;
 
-    public Task(@JsonProperty("id") UUID id,
+    public Task(@JsonProperty("task_id") UUID task_id,
+                @JsonProperty("owner") User owner,
                 @JsonProperty("task_name") String name,
                 @JsonProperty("description") String description,
                 @JsonProperty("timestamp") Timestamp timestamp) {
-        this.id = id;
+        this.task_id = task_id;
+        this.owner = owner;
         this.name = name;
         this.description = description;
         this.timestamp = timestamp;
     }
 
-    public UUID getId() {
-        return id;
+    public User getOwner() {
+        return owner;
+    }
+
+    public UUID getTask_id() {
+        return task_id;
     }
 
     public String getName() {
@@ -42,4 +51,6 @@ public class Task {
     public Timestamp getTimestamp() {
         return timestamp;
     }
+
+
 }
