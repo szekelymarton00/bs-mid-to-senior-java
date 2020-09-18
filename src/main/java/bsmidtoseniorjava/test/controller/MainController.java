@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +34,7 @@ public class MainController {
     }
 
     @GetMapping
-    public Iterable<User> getAllUsers() {
+    public List<User> getAllUsers() {
         log.debug("Retrieving all users in db");
         return userService.getAllUsers();
     }
