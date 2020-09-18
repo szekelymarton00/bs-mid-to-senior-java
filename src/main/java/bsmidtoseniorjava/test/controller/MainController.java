@@ -4,12 +4,10 @@ import bsmidtoseniorjava.test.model.User;
 import bsmidtoseniorjava.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("api/user")
 @RestController
+@RequestMapping("api/user")
 public class MainController {
 
     private final UserService userService;
@@ -25,7 +23,7 @@ public class MainController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public Iterable<User> getAllUsers() {
         return userService.getAllUsers();
     }
 
@@ -42,6 +40,8 @@ public class MainController {
 
     @PutMapping(path = "{id}")
     public void updateUser(@PathVariable("id") UUID id, @RequestBody User userToUpdate) {
-        userService.updateUser(id,userToUpdate);
+        if (userService.getUserById(id).isPresent()) {
+            userService.updateUser(id,userToUpdate);
+        }
     }
 }
