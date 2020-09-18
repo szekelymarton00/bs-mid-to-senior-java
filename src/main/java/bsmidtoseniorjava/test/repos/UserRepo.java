@@ -16,6 +16,6 @@ public interface UserRepo extends CrudRepository<User, UUID> {
     @Query("SELECT * FROM bsuser")
     List<User> listAllUsers();
 
-    @Query("SELECT * FROM bsuser WHERE id = :id")
+    @Query("SELECT * FROM bsuser WHERE user_id = :id")
     Optional<User> findById(@Param("id") UUID id);
 }
